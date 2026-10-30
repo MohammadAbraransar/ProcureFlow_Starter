@@ -1,0 +1,45 @@
+server:
+  port: ${PORT:8080}
+  servlet:
+    session:
+      timeout: 30m
+      cookie:
+        http-only: true
+        secure: ${COOKIE_SECURE:false}
+        same-site: lax
+  error:
+    include-message: never
+    include-binding-errors: never
+    include-stacktrace: never
+
+spring:
+  application:
+    name: procureflow-api
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/procureflow}
+    username: ${DB_USERNAME:procureflow_app}
+    password: ${DB_PASSWORD:}
+    hikari:
+      maximum-pool-size: 8
+      minimum-idle: 1
+      connection-timeout: 30000
+  flyway:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
+
+logging:
+  level:
+    root: INFO
+    org.springframework.security: INFO
+
+app:
+  cors:
+    allowed-origin: ${APP_CORS_ORIGIN:http://localhost:4200}
